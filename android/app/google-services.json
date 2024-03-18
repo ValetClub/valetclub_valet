@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "919173570715",
+    "project_id": "valet-club-dev-e2559",
+    "storage_bucket": "valet-club-dev-e2559.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919173570715:android:21e3d5d07c1261cb7e663e",
+        "android_client_info": {
+          "package_name": "com.evidence.valetclub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmM3bXc4dV8j13rJS8ZjZfR-4YAeFlR3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919173570715:android:d0018e937ad01e587e663e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmM3bXc4dV8j13rJS8ZjZfR-4YAeFlR3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919173570715:android:f7ed5c73cf8af6ae7e663e",
+        "android_client_info": {
+          "package_name": "com.example.valetclub_client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmM3bXc4dV8j13rJS8ZjZfR-4YAeFlR3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919173570715:android:cfe917506208405d7e663e",
+        "android_client_info": {
+          "package_name": "com.example.valetclub_valet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmM3bXc4dV8j13rJS8ZjZfR-4YAeFlR3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919173570715:android:961cbe636147e2127e663e",
+        "android_client_info": {
+          "package_name": "com.mycompany.valetclub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmM3bXc4dV8j13rJS8ZjZfR-4YAeFlR3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
