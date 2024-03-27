@@ -1,12 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:valetclub_valet/common/common_widgets.dart';
-import 'package:valetclub_valet/common/map_key.dart';
+// import 'package:valetclub_valet/common/common_widgets.dart';
+// import 'package:valetclub_valet/common/map_key.dart';
 import 'package:valetclub_valet/components/sidebar.dart';
+import 'package:valetclub_valet/custom/bottombar_icons.dart';
+import 'package:valetclub_valet/pages/activity_screen.dart';
+import 'package:valetclub_valet/pages/notification_screen.dart';
+import 'package:valetclub_valet/pages/profile_screen.dart';
+import 'package:valetclub_valet/pages/scan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,25 +21,109 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   Location _locationController = Location();
   late StreamSubscription<LocationData> _locationSubscription;
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
-  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  static const LatLng _sourceLocation = LatLng(33.610442, -7.653565);
 
-  static const LatLng _pGooglePark = LatLng(37.3346, -122.0090);
-  LatLng? _currentP;
+  static const LatLng _destinationLocation = LatLng(33.592076, -7.625269);
+  LatLng? _currentPosition;
+  BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+  bool showClientInfo = false;
+  String? clientAddress;
+  bool _destinationMarkerVisibility = true;
 
-  bool _isSidebarOpen = false;
+  // List<LatLng> polylineCoordinates = [];
+
+  // void getPolylinePoints() async {
+  //   PolylinePoints polylinePoints = PolylinePoints();
+  //   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //     mapKey,
+  //     PointLatLng(_sourceLocation.latitude, _sourceLocation.longitude),
+  //     PointLatLng(
+  //         _destinationLocation.latitude, _destinationLocation.longitude),
+  //     travelMode: TravelMode.driving,
+  //   );
+  //   if (result.points.isNotEmpty) {
+  //     result.points.forEach(
+  //       (PointLatLng point) => polylineCoordinates.add(
+  //         LatLng(point.latitude, point.longitude),
+  //       ),
+  //     );
+  //     setState(() {});
+  //   } else {
+  //     print(result.errorMessage);
+  //   }
+  // }
+
+  void setCustomMarkerIcon() {
+    // BitmapDescriptor.fromAssetImage(
+    //   const ImageConfiguration(size: Size(48, 48)),
+    //   "assets/images/logo_valet.png",
+    // ).then(
+    //   (icon) {
+    //     sourceIcon = icon;
+    //   },
+    // );
+
+    BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(size: Size(48, 38)),
+      "assets/images/current_location.png",
+    ).then(
+      (icon) {
+        destinationIcon = icon;
+      },
+    );
+
+    BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(
+          // size: Size(48, 48),
+          ),
+      "assets/images/current_marker.png",
+    ).then(
+      (icon) {
+        currentLocationIcon = icon;
+      },
+    );
+  }
+
+  // final Polyline _keyPolyLine = const Polyline(
+  //   polylineId: PolylineId("route"),
+  //   points: [
+  //     _sourceLocation,
+  //     _destinationLocation,
+  //   ],
+  //   color: Colors.blue,
+  //   width: 6,
+  //   visible: true,
+  // );
+  int _selectedTabIndex = 0;
+
+  late List<Widget> _widgetOptions;
+  void widgetOptions() {
+    _widgetOptions = [
+      _content(),
+      const ActivityScreen(),
+      const ScanScreen(),
+      const NotificationScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   void initState() {
     super.initState();
+
     getLocationUpdates();
-    getPolylinePoints().then((coordinates) {
-      print(coordinates);
-    });
+    setCustomMarkerIcon();
+    // getPolylinePoints();
+    widgetOptions();
   }
 
   @override
@@ -45,63 +134,117 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget content = _selectedTabIndex == 0
+        ? _content()
+        : (_widgetOptions[_selectedTabIndex]);
+
     return Scaffold(
-      body: Stack(
-        children: [
-          //Map
-          _buildMap(),
-          // Bottom icons
-          bottomBar(context),
-          // Sidebar Left Button
-          _buildSidebarLeftButton(),
-          // Sidebar
-          if (_isSidebarOpen) const Sidebar(),
-          // Sidebar Right Button
-          _buildSidebarRightButton(),
-        ],
+      key: _scaffoldKey,
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          // Close the sidebar when the  taps outside
+          if (_scaffoldKey.currentState?.isDrawerOpen == true) {
+            // Open the Drawer(sidebar)
+            _scaffoldKey.currentState?.closeDrawer();
+          }
+        },
+        child: content,
       ),
+      backgroundColor: Colors.transparent,
+
+      bottomNavigationBar: CustomBottomNavigationBar(
+        selectedIndex: _selectedTabIndex,
+        onTabChange: (index) {
+          setState(() {
+            _selectedTabIndex = index;
+          });
+        },
+      ),
+
+      // Drawer (Sidebar)
+      drawer: const Sidebar(),
+    );
+  }
+
+  Widget _content() {
+    return Stack(
+      children: [
+        Column(
+          children: [
+            // Map Container
+            Expanded(
+              child: _buildMap(),
+            ),
+            // Client  Information Card
+            if (showClientInfo)
+              _buildClientInfoDrawer(() {
+                setState(() {
+                  showClientInfo = false;
+                  clientAddress = null;
+                  _destinationMarkerVisibility = true;
+                });
+              }),
+          ],
+        ),
+
+        // Sidebar Left Button
+        _buildSidebarLeftButton(),
+        // Sidebar Right Button
+        _buildSidebarRightButton(),
+      ],
     );
   }
 
   Widget _buildMap() {
-    return GestureDetector(
-      onTap: () {
-        if (_isSidebarOpen) {
-          setState(() {
-            _isSidebarOpen = false;
-          });
-        }
-      },
-      child: _currentP == null
-          ? const Center(
-              child: Text("Open Your Location"),
-            )
-          : GoogleMap(
-              onMapCreated: (GoogleMapController controller) =>
-                  _mapController.complete(controller),
-              initialCameraPosition: const CameraPosition(
-                target: _pGooglePlex,
-                zoom: 13,
+    return Container(
+      height: double.infinity,
+      color: Colors.white,
+      width: double.infinity,
+      child: Listener(
+        behavior: HitTestBehavior.opaque,
+        child: _currentPosition == null
+            ? const Center(
+                child: Text("Open Your Location"),
+              )
+            : GoogleMap(
+                onMapCreated: (GoogleMapController controller) =>
+                    _mapController.complete(controller),
+                initialCameraPosition: const CameraPosition(
+                  target: _sourceLocation,
+                  zoom: 13,
+                ),
+                mapType: MapType.normal,
+                // polylines: {
+                //   _keyPolyLine,
+                // },
+                markers: {
+                  Marker(
+                    markerId: const MarkerId("_currentLocation"),
+                    icon: currentLocationIcon,
+                    position: _currentPosition!,
+                  ),
+                  // Marker(
+                  //   markerId: const MarkerId("_sourceLocation"),
+                  //   icon: sourceIcon,
+                  //   position: _sourceLocation,
+                  // ),
+                  if (_destinationMarkerVisibility)
+                    Marker(
+                      markerId: const MarkerId("_destinationLocation"),
+                      icon: destinationIcon,
+                      position: _destinationLocation,
+                      onTap: () {
+                        setState(() {
+                          clientAddress = "Client  destination address ";
+                          showClientInfo = true;
+                          _destinationMarkerVisibility = false;
+                        });
+                      },
+                    ),
+                },
               ),
-              mapType: MapType.normal,
-              markers: {
-                Marker(
-                  markerId: const MarkerId("_currentLocation"),
-                  icon: BitmapDescriptor.defaultMarker,
-                  position: _currentP!,
-                ),
-                const Marker(
-                  markerId: MarkerId("_sourceLocation"),
-                  icon: BitmapDescriptor.defaultMarker,
-                  position: _pGooglePlex,
-                ),
-                const Marker(
-                  markerId: MarkerId("_destinationLocation"),
-                  icon: BitmapDescriptor.defaultMarker,
-                  position: _pGooglePark,
-                )
-              },
-            ),
+      ),
     );
   }
 
@@ -111,9 +254,11 @@ class _HomeScreenState extends State<HomeScreen> {
       left: 10,
       child: GestureDetector(
         onTap: () {
-          setState(() {
-            _isSidebarOpen = !_isSidebarOpen;
-          });
+          // Hide the icon when the sidebar is opened
+          if (!_scaffoldKey.currentState!.isDrawerOpen) {
+            // Open the Drawer
+            _scaffoldKey.currentState?.openDrawer();
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -157,10 +302,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _cameraToPosition(LatLng pos) async {
+  Future<void> _cameraToPosition(LatLng position) async {
     final GoogleMapController controller = await _mapController.future;
     CameraPosition _newCameraPosition = CameraPosition(
-      target: pos,
+      target: position,
       zoom: 13,
     );
     await controller
@@ -173,30 +318,104 @@ class _HomeScreenState extends State<HomeScreen> {
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
         setState(() {
-          _currentP =
+          _currentPosition =
               LatLng(currentLocation.latitude!, currentLocation.longitude!);
-          _cameraToPosition(_currentP!);
+          _cameraToPosition(_currentPosition!);
         });
       }
     });
   }
+}
 
-  Future<List<LatLng>> getPolylinePoints() async {
-    List<LatLng> polylineCoordinates = [];
-    PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      mapKey,
-      PointLatLng(_pGooglePlex.latitude, _pGooglePlex.longitude),
-      PointLatLng(_pGooglePark.latitude, _pGooglePark.longitude),
-      travelMode: TravelMode.driving,
-    );
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    } else {
-      print(result.errorMessage);
-    }
-    return polylineCoordinates;
-  }
+Widget _buildClientInfoDrawer(
+  Function() onClose,
+) {
+  String? clientAddress;
+  return Positioned(
+    bottom: 0,
+    left: 0,
+    right: 0,
+    child: Container(
+      color: const Color(0xFFE23777),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Center(
+            child: Text(
+              "Call for a new Trip",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage('assets/images/logo_valet.png'),
+              ),
+              SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Reda El Kadi",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "Client ID :122e93",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Icon(
+                Icons.location_on,
+                color: Colors.white,
+              ),
+              const SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Address",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    clientAddress ?? "Unknown Address",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  onClose();
+                },
+                child: const Text("Close"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }

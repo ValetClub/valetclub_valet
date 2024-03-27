@@ -4,12 +4,14 @@ import 'package:valetclub_valet/screens/landing_screen.dart';
 import 'package:valetclub_valet/services/otp.dart';
 
 class Sidebar extends StatelessWidget {
-  const Sidebar({Key? key}) : super(key: key);
+  const Sidebar({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
+      width: 300,
       height: double.infinity,
       color: Colors.white,
       child: SingleChildScrollView(
@@ -25,7 +27,7 @@ class Sidebar extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 35),
               child: const Column(
                 children: [
                   CircleAvatar(

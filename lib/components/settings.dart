@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:valetclub_valet/common/common_widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +103,6 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
           ),
-          bottomBar(context),
         ],
       ),
     );
