@@ -1,5 +1,6 @@
 {
   "dart.hotReloadOnSave": "manual",
   "java.compile.nullAnalysis.mode": "automatic",
-  "java.configuration.updateBuildConfiguration": "disabled"
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "git.ignoreLimitWarning": true
 }

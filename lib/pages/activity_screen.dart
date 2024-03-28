@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 
 class ActivityScreen extends StatelessWidget {
-  const ActivityScreen({super.key});
+  final bool isFromBottomNavBar;
+  const ActivityScreen({
+    super.key,
+    required this.isFromBottomNavBar,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Text('Activity Screen'),
+    return Scaffold(
+      // Condition Of showing AppBar or Not based on
+      // whether the screen is opened from BottomNavigationBar or not
+      appBar: isFromBottomNavBar
+          ? null
+          : AppBar(
+              title: const Text('Activity '),
+              backgroundColor: const Color(0xFFE23777),
+              foregroundColor: Colors.white,
+            ),
+      body: Container(
+        color: Colors.white,
+        child: const Center(
+          child: Text('Activity Screen'),
+        ),
       ),
     );
   }

@@ -101,7 +101,7 @@ class _LoginEmailState extends State<LoginEmail> {
                             });
                           } else {
                             setState(() {
-                              _error = 'An error . Please try again .';
+                              _error = 'An error . Please try again.';
                             });
                           }
                         } catch (e) {

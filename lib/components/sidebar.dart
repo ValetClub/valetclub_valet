@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/components/cars_parking.dart';
+import 'package:valetclub_valet/components/contactez.dart';
+import 'package:valetclub_valet/components/faq.dart';
+import 'package:valetclub_valet/components/partenaire.dart';
+import 'package:valetclub_valet/components/recharge.dart';
+import 'package:valetclub_valet/components/reclamation.dart';
 import 'package:valetclub_valet/components/settings.dart';
+import 'package:valetclub_valet/pages/activity_screen.dart';
+import 'package:valetclub_valet/pages/profile_screen.dart';
 import 'package:valetclub_valet/screens/landing_screen.dart';
 import 'package:valetclub_valet/services/otp.dart';
 
 class Sidebar extends StatelessWidget {
+  final bool isFromBottomNavBar;
   const Sidebar({
+    required this.isFromBottomNavBar,
     super.key,
   });
 
@@ -64,7 +74,14 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('Recharge Portefeuille client'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RechargeScreen(),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -73,7 +90,15 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('Mes activités'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ActivityScreen(
+                              isFromBottomNavBar: isFromBottomNavBar),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -82,7 +107,14 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('Partenaire'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PartenaireScreen(),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -91,7 +123,15 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('Profile'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(
+                              isFromBottomNavBar: isFromBottomNavBar),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -100,7 +140,14 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('My Cars in parking'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CarParkingScreen(),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -109,7 +156,14 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('Reclamation'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ReclamationScreen(),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -119,7 +173,7 @@ class Sidebar extends StatelessWidget {
                     ),
                     title: const Text('Settings'),
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const SettingsScreen(),
@@ -134,7 +188,14 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('FAQ'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FaqScreen(),
+                        ),
+                      );
+                    },
                   ),
                   ListTile(
                     leading: Image.asset(
@@ -143,7 +204,14 @@ class Sidebar extends StatelessWidget {
                       height: 20,
                     ),
                     title: const Text('Contactez nous'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ContactNousScreen(),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 20),
                   Align(

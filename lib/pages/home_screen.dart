@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-// import 'package:valetclub_valet/common/common_widgets.dart';
-// import 'package:valetclub_valet/common/map_key.dart';
+import 'package:valetclub_valet/components/reclamation.dart';
+
 import 'package:valetclub_valet/components/sidebar.dart';
 import 'package:valetclub_valet/custom/bottombar_icons.dart';
 import 'package:valetclub_valet/pages/activity_screen.dart';
@@ -17,10 +17,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => tracking();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class tracking extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Location _locationController = Location();
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void setCustomMarkerIcon() {
     // BitmapDescriptor.fromAssetImage(
-    //   const ImageConfiguration(size: Size(48, 48)),
+    //   const ImageConfiguration(),
     //   "assets/images/logo_valet.png",
     // ).then(
     //   (icon) {
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // );
 
     BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(48, 38)),
+      const ImageConfiguration(),
       "assets/images/current_location.png",
     ).then(
       (icon) {
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(
-          // size: Size(48, 48),
+          // size: Size(80, 80)
           ),
       "assets/images/current_marker.png",
     ).then(
@@ -92,6 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
+  // Drawing a line between the source and the destination
 
   // final Polyline _keyPolyLine = const Polyline(
   //   polylineId: PolylineId("route"),
@@ -103,16 +105,20 @@ class _HomeScreenState extends State<HomeScreen> {
   //   width: 6,
   //   visible: true,
   // );
-  int _selectedTabIndex = 0;
 
+  int _selectedTabIndex = 0;
+  // Navigation Condition
+  bool isFromBottomNavBar = true;
+
+  // Switching between the pages
   late List<Widget> _widgetOptions;
   void widgetOptions() {
     _widgetOptions = [
       _content(),
-      const ActivityScreen(),
+      ActivityScreen(isFromBottomNavBar: isFromBottomNavBar),
       const ScanScreen(),
       const NotificationScreen(),
-      const ProfileScreen(),
+      ProfileScreen(isFromBottomNavBar: isFromBottomNavBar),
     ];
   }
 
@@ -143,9 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          // Close the sidebar when the  taps outside
+          // Close the Drawer(sidebar) when the  taps outside
           if (_scaffoldKey.currentState?.isDrawerOpen == true) {
-            // Open the Drawer(sidebar)
             _scaffoldKey.currentState?.closeDrawer();
           }
         },
@@ -158,35 +163,39 @@ class _HomeScreenState extends State<HomeScreen> {
         onTabChange: (index) {
           setState(() {
             _selectedTabIndex = index;
+            isFromBottomNavBar = true;
           });
         },
       ),
 
       // Drawer (Sidebar)
-      drawer: const Sidebar(),
+      drawer: Sidebar(isFromBottomNavBar: !isFromBottomNavBar),
     );
   }
 
   Widget _content() {
     return Stack(
       children: [
-        Column(
-          children: [
-            // Map Container
-            Expanded(
-              child: _buildMap(),
-            ),
-            // Client  Information Card
-            if (showClientInfo)
-              _buildClientInfoDrawer(() {
-                setState(() {
-                  showClientInfo = false;
-                  clientAddress = null;
-                  _destinationMarkerVisibility = true;
-                });
-              }),
-          ],
-        ),
+        LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return Column(
+            children: [
+              // Map Container
+              Expanded(
+                child: _buildMap(),
+              ),
+              // Client  Information Card
+              if (showClientInfo)
+                _buildClientInfoDrawer(() {
+                  setState(() {
+                    showClientInfo = false;
+                    clientAddress = null;
+                    _destinationMarkerVisibility = true;
+                  });
+                }),
+            ],
+          );
+        }),
 
         // Sidebar Left Button
         _buildSidebarLeftButton(),
@@ -229,6 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   //   icon: sourceIcon,
                   //   position: _sourceLocation,
                   // ),
+
                   if (_destinationMarkerVisibility)
                     Marker(
                       markerId: const MarkerId("_destinationLocation"),
@@ -254,9 +264,9 @@ class _HomeScreenState extends State<HomeScreen> {
       left: 10,
       child: GestureDetector(
         onTap: () {
-          // Hide the icon when the sidebar is opened
+          // Hide the icon when the Drawer(sidebar) is opened
           if (!_scaffoldKey.currentState!.isDrawerOpen) {
-            // Open the Drawer
+            // Open the Drawer(sidebar)
             _scaffoldKey.currentState?.openDrawer();
           }
         },
@@ -283,7 +293,15 @@ class _HomeScreenState extends State<HomeScreen> {
       top: 50,
       right: 10,
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          print('Context: $context');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ReclamationScreen(),
+            ),
+          );
+        },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
@@ -302,6 +320,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+// keep tracking the device(user) in map  and update it's location whenever user moves
   Future<void> _cameraToPosition(LatLng position) async {
     final GoogleMapController controller = await _mapController.future;
     CameraPosition _newCameraPosition = CameraPosition(
@@ -312,6 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition));
   }
 
+// Location locator of Device(User)
   void getLocationUpdates() {
     _locationSubscription = _locationController.onLocationChanged
         .listen((LocationData currentLocation) {
@@ -327,95 +347,95 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+//Showing  Information of Client(User)  Passed on click in Map
 Widget _buildClientInfoDrawer(
   Function() onClose,
 ) {
   String? clientAddress;
-  return Positioned(
-    bottom: 0,
-    left: 0,
-    right: 0,
-    child: Container(
-      color: const Color(0xFFE23777),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Center(
-            child: Text(
-              "Call for a new Trip",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: Colors.white,
-              ),
+
+  //! using Draggable Scrollable Bottom Sheet to Expand the Info of Client
+  return Container(
+    color: const Color(0xFFE23777),
+    padding: const EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Center(
+          child: Text(
+            "Call for a new Trip",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.white,
             ),
           ),
-          const SizedBox(height: 8),
-          const Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey,
-                backgroundImage: AssetImage('assets/images/logo_valet.png'),
-              ),
-              SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Reda El Kadi",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+        ),
+        const SizedBox(height: 8),
+        const Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.grey,
+              backgroundImage: AssetImage('assets/images/logo_valet.png'),
+            ),
+            SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //? in condition of user doesn't register his name  what should  show here ???
+                Text(
+                  "Reda El Kadi",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  Text(
-                    "Client ID :122e93",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                ),
+                Text(
+                  "Client ID :122e93",
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(
-                Icons.location_on,
-                color: Colors.white,
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Address",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    clientAddress ?? "Unknown Address",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  onClose();
-                },
-                child: const Text("Close"),
-              ),
-            ],
-          ),
-        ],
-      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            const Icon(
+              Icons.location_on,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Address",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  //! Not Working  because of the null value in the data model
+                  clientAddress ?? "Unknown Address",
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                onClose();
+              },
+              child: const Text("Close"),
+            ),
+          ],
+        ),
+      ],
     ),
   );
 }

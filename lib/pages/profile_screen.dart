@@ -2,11 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:valetclub_valet/components/settings.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final bool isFromBottomNavBar;
+
+  const ProfileScreen({
+    super.key,
+    required this.isFromBottomNavBar,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Condition Of showing AppBar or Not based on 
+      // whether the screen is opened from BottomNavigationBar or not
+      appBar: isFromBottomNavBar
+          ? null
+          : AppBar(
+              title: const Text('Profile'),
+              backgroundColor: const Color(0xFFE23777),
+              foregroundColor: Colors.white,
+            ),
       body: Column(
         children: [
           Expanded(
