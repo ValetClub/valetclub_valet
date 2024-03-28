@@ -38,25 +38,36 @@ class Sidebar extends StatelessWidget {
               ),
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 35),
-              child: const Column(
+              child: Column(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/logo_valet.png'),
-                    radius: 30,
+                  //Making the circle around the Image
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color(0xFFEC7BA5),
+                        width: 4,
+                      ),
+                    ),
+                    child: const CircleAvatar(
+                      radius: 30,
+                      backgroundImage:
+                          AssetImage('assets/images/logo_valet.png'),
+                    ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'test valet',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
                       color: Colors.white,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'ID: 12345',
                     style: TextStyle(
-                      fontSize: 6,
+                      fontSize: 8,
                       color: Colors.white,
                     ),
                   ),
@@ -213,7 +224,7 @@ class Sidebar extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Padding(

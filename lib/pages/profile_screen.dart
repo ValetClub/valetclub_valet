@@ -80,6 +80,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             Column(
               children: [
+                //Making the circle around the Image
                 Container(
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
