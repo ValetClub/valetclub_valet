@@ -17,9 +17,13 @@ class ProfileScreen extends StatelessWidget {
       appBar: isFromBottomNavBar
           ? null
           : AppBar(
-              title: const Text('Profile'),
-              backgroundColor: const Color(0xFFE23777),
-              foregroundColor: Colors.white,
+              title: const Text(
+                'Profile',
+                textAlign: TextAlign.center,
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
             ),
       body: Column(
         children: [

@@ -7,9 +7,13 @@ class PartenaireScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Partenaire'),
-        backgroundColor: const Color(0xFFE23777),
-        foregroundColor: Colors.white,
+        title: const Text(
+          'Partenaire',
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
       body: Container(
         color: Colors.white,

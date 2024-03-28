@@ -7,9 +7,19 @@ class FaqScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Faq'),
-        backgroundColor: const Color(0xFFE23777),
-        foregroundColor: Colors.white,
+        title: const Text(
+          'FAQ',
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Container(
         color: Colors.white,

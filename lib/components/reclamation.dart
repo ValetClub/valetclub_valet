@@ -7,9 +7,19 @@ class ReclamationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reclamation'),
-        backgroundColor: const Color(0xFFE23777),
-        foregroundColor: Colors.white,
+        title: const Text(
+          'Reclamations',
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Container(
         color: Colors.white,

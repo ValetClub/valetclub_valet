@@ -15,9 +15,13 @@ class ActivityScreen extends StatelessWidget {
       appBar: isFromBottomNavBar
           ? null
           : AppBar(
-              title: const Text('Activity '),
-              backgroundColor: const Color(0xFFE23777),
-              foregroundColor: Colors.white,
+              title: const Text(
+                'Activities',
+                textAlign: TextAlign.center,
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
             ),
       body: Container(
         color: Colors.white,

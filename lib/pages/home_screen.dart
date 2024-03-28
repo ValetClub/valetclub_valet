@@ -381,7 +381,7 @@ Widget _buildClientInfoDrawer(
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //? in condition of user doesn't register his name  what should  show here ???
+                //? in condition of user doesn't register his name  what should we show here ???
                 Text(
                   "Reda El Kadi",
                   style: TextStyle(
