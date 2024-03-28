@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Condition Of showing AppBar or Not based on 
+      // Condition Of showing AppBar or Not based on
       // whether the screen is opened from BottomNavigationBar or not
       appBar: isFromBottomNavBar
           ? null
@@ -221,7 +221,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildFooterText(String text) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(bottom: 40, left: 20),
       child: Text(
         text,
         style: const TextStyle(
