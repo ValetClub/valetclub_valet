@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class ActivityScreen extends StatelessWidget {
   final bool isFromBottomNavBar;
@@ -20,11 +21,11 @@ class ActivityScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               centerTitle: true,
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
+              backgroundColor: MainTheme.secondaryColor,
+              foregroundColor: MainTheme.darkColor,
             ),
       body: Container(
-        color: Colors.white,
+        color: MainTheme.secondaryColor,
         child: const Center(
           child: Text('Activity Screen'),
         ),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/suivant_button.dart';
 import 'package:valetclub_valet/pages/home_screen.dart';
 
@@ -88,7 +89,7 @@ class _InfoSecondScreenState extends State<InfoSecondScreen> {
                         decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: Colors.white,
+                              color: MainTheme.secondaryColor,
                               width: 1.0,
                             ),
                           ),
@@ -100,7 +101,8 @@ class _InfoSecondScreenState extends State<InfoSecondScreen> {
                             children: [
                               Text(
                                 "Complete agent Profile",
-                                style: TextStyle(color: Colors.white),
+                                style:
+                                    TextStyle(color: MainTheme.secondaryColor),
                               ),
                             ],
                           ),
@@ -167,15 +169,15 @@ class _InfoSecondScreenState extends State<InfoSecondScreen> {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
-      style: const TextStyle(color: Colors.blue),
+      style: const TextStyle(color: MainTheme.thirdColor),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.blue),
+        labelStyle: const TextStyle(color: MainTheme.thirdColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13),
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: MainTheme.secondaryColor,
         suffixIcon: _buildClearIconButton(controller, focusNode),
       ),
       validator: (value) {
@@ -202,7 +204,7 @@ class _InfoSecondScreenState extends State<InfoSecondScreen> {
                 }
               : null,
           icon: hasText
-              ? const Icon(Icons.clear, color: Colors.blue)
+              ? const Icon(Icons.clear, color: MainTheme.thirdColor)
               : const SizedBox(),
         );
       },
@@ -213,15 +215,15 @@ class _InfoSecondScreenState extends State<InfoSecondScreen> {
     return TextFormField(
       controller: _dateController,
       focusNode: _dateFocusNode,
-      style: const TextStyle(color: Colors.blue),
+      style: const TextStyle(color: MainTheme.thirdColor),
       decoration: InputDecoration(
         labelText: 'Date Validate',
-        labelStyle: const TextStyle(color: Colors.blue),
+        labelStyle: const TextStyle(color: MainTheme.thirdColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13),
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: MainTheme.secondaryColor,
       ),
       keyboardType: TextInputType.datetime,
       onChanged: (value) {
@@ -256,16 +258,16 @@ class _InfoSecondScreenState extends State<InfoSecondScreen> {
     return TextFormField(
       readOnly: true,
       onTap: () => _takePicture(context),
-      style: const TextStyle(color: Colors.blue),
+      style: const TextStyle(color: MainTheme.thirdColor),
       decoration: InputDecoration(
         labelText: 'Picture of License: $_pickedImageName',
-        labelStyle: const TextStyle(color: Colors.blue),
+        labelStyle: const TextStyle(color: MainTheme.thirdColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13),
         ),
         suffixIcon: const Icon(Icons.camera_alt),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: MainTheme.secondaryColor,
       ),
     );
   }

@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/button.dart';
 import 'package:valetclub_valet/custom/text_field.dart';
-import 'package:valetclub_valet/valet%20informations/first_screen.dart';
+import 'package:valetclub_valet/screens/valet%20informations/first_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
   final String email;
@@ -54,7 +55,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                             decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Colors.white,
+                                  color: MainTheme.secondaryColor,
                                   width: 1.0,
                                 ),
                               ),
@@ -66,7 +67,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                 children: [
                                   Text(
                                     "Registration",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: MainTheme.secondaryColor),
                                   ),
                                 ],
                               ),
@@ -181,7 +183,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Registration failed. Please try again.'),
-            backgroundColor: Colors.red,
+            backgroundColor: MainTheme.errorColor,
           ),
         );
       }

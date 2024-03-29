@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/components/reclamation.dart';
 
 import 'package:valetclub_valet/components/sidebar.dart';
@@ -208,7 +209,7 @@ class tracking extends State<HomeScreen> {
   Widget _buildMap() {
     return Container(
       height: double.infinity,
-      color: Colors.white,
+      color: MainTheme.secondaryColor,
       width: double.infinity,
       child: Listener(
         behavior: HitTestBehavior.opaque,
@@ -273,7 +274,7 @@ class tracking extends State<HomeScreen> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
-            color: const Color(0xFFE23777),
+            color: MainTheme.mainColor,
             // color: Colors.black,
           ),
           padding: const EdgeInsets.all(8),
@@ -281,7 +282,7 @@ class tracking extends State<HomeScreen> {
             'assets/images/menu.png',
             width: 24,
             height: 24,
-            color: Colors.white,
+            color: MainTheme.secondaryColor,
           ),
         ),
       ),
@@ -305,7 +306,7 @@ class tracking extends State<HomeScreen> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
-            color: const Color(0xFFE23777),
+            color: MainTheme.mainColor,
             // color: Colors.black,
           ),
           padding: const EdgeInsets.all(8),
@@ -313,7 +314,7 @@ class tracking extends State<HomeScreen> {
             'assets/images/reclamation.png',
             width: 24,
             height: 24,
-            color: Colors.white,
+            color: MainTheme.secondaryColor,
           ),
         ),
       ),
@@ -355,7 +356,7 @@ Widget _buildClientInfoDrawer(
 
   //! using Draggable Scrollable Bottom Sheet to Expand the Info of Client
   return Container(
-    color: const Color(0xFFE23777),
+    color: MainTheme.mainColor,
     padding: const EdgeInsets.all(16),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -366,7 +367,7 @@ Widget _buildClientInfoDrawer(
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
-              color: Colors.white,
+              color: MainTheme.secondaryColor,
             ),
           ),
         ),
@@ -374,7 +375,7 @@ Widget _buildClientInfoDrawer(
         const Row(
           children: [
             CircleAvatar(
-              backgroundColor: Colors.grey,
+              backgroundColor: MainTheme.greyColor,
               backgroundImage: AssetImage('assets/images/logo_valet.png'),
             ),
             SizedBox(width: 8),
@@ -386,13 +387,13 @@ Widget _buildClientInfoDrawer(
                   "Reda El Kadi",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: MainTheme.secondaryColor,
                   ),
                 ),
                 Text(
                   "Client ID :122e93",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: MainTheme.secondaryColor,
                   ),
                 ),
               ],
@@ -404,7 +405,7 @@ Widget _buildClientInfoDrawer(
           children: [
             const Icon(
               Icons.location_on,
-              color: Colors.white,
+              color: MainTheme.secondaryColor,
             ),
             const SizedBox(width: 8),
             Column(
@@ -412,12 +413,12 @@ Widget _buildClientInfoDrawer(
               children: [
                 const Text(
                   "Address",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: MainTheme.secondaryColor),
                 ),
                 Text(
                   //! Not Working  because of the null value in the data model
                   clientAddress ?? "Unknown Address",
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: MainTheme.secondaryColor),
                 ),
               ],
             ),

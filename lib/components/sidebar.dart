@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/components/cars_parking.dart';
 import 'package:valetclub_valet/components/contactez.dart';
 import 'package:valetclub_valet/components/faq.dart';
@@ -23,14 +24,14 @@ class Sidebar extends StatelessWidget {
     return Container(
       width: 300,
       height: double.infinity,
-      color: Colors.white,
+      color: MainTheme.secondaryColor,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               decoration: const BoxDecoration(
-                color: Color(0xFFE23777),
+                color: MainTheme.mainColor,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
@@ -61,21 +62,21 @@ class Sidebar extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 12,
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                     ),
                   ),
                   const Text(
                     'ID: 12345',
                     style: TextStyle(
                       fontSize: 8,
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                     ),
                   ),
                 ],
               ),
             ),
             Container(
-              color: Colors.white,
+              color: MainTheme.secondaryColor,
               child: Column(
                 children: [
                   ListTile(
@@ -255,7 +256,7 @@ class Sidebar extends StatelessWidget {
                             const Text(
                               'Logout',
                               style: TextStyle(
-                                color: Color(0xFFE23777),
+                                color: MainTheme.mainColor,
                               ),
                             ),
                           ],

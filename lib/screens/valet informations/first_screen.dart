@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/suivant_button.dart';
-import 'package:valetclub_valet/valet%20informations/second_screen.dart';
+import 'package:valetclub_valet/screens/valet%20informations/second_screen.dart';
 
 class InfoFirstScreen extends StatefulWidget {
   const InfoFirstScreen({
@@ -70,7 +71,7 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
                         decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: Colors.white,
+                              color: MainTheme.secondaryColor,
                               width: 1.0,
                             ),
                           ),
@@ -82,7 +83,8 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
                             children: [
                               Text(
                                 "Registration",
-                                style: TextStyle(color: Colors.white),
+                                style:
+                                    TextStyle(color: MainTheme.secondaryColor),
                               ),
                             ],
                           ),
@@ -110,15 +112,16 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
                           _selectedDay = value!;
                         });
                       },
-                      style: const TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: MainTheme.thirdColor),
                       decoration: InputDecoration(
                         labelText: 'Day',
-                        labelStyle: const TextStyle(color: Colors.blue),
+                        labelStyle:
+                            const TextStyle(color: MainTheme.thirdColor),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                         ),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: MainTheme.secondaryColor,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -144,15 +147,16 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
                           _selectedMonth = value!;
                         });
                       },
-                      style: const TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: MainTheme.thirdColor),
                       decoration: InputDecoration(
                         labelText: 'Month',
-                        labelStyle: const TextStyle(color: Colors.blue),
+                        labelStyle:
+                            const TextStyle(color: MainTheme.thirdColor),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                         ),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: MainTheme.secondaryColor,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -178,15 +182,16 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
                           _selectedYear = value!;
                         });
                       },
-                      style: const TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: MainTheme.thirdColor),
                       decoration: InputDecoration(
                         labelText: 'Year',
-                        labelStyle: const TextStyle(color: Colors.blue),
+                        labelStyle:
+                            const TextStyle(color: MainTheme.thirdColor),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                         ),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: MainTheme.secondaryColor,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -202,15 +207,15 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
               TextFormField(
                 controller: _countryController,
                 focusNode: _countryFocusNode,
-                style: const TextStyle(color: Colors.blue),
+                style: const TextStyle(color: MainTheme.thirdColor),
                 decoration: InputDecoration(
                   labelText: 'Country',
-                  labelStyle: const TextStyle(color: Colors.blue),
+                  labelStyle: const TextStyle(color: MainTheme.thirdColor),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(13),
                   ),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: MainTheme.secondaryColor,
                   suffixIcon: _buildClearIconButton(
                       _countryController, _countryFocusNode),
                 ),
@@ -228,15 +233,15 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
               TextFormField(
                 controller: _cityController,
                 focusNode: _cityFocusNode,
-                style: const TextStyle(color: Colors.blue),
+                style: const TextStyle(color: MainTheme.thirdColor),
                 decoration: InputDecoration(
                   labelText: 'City',
-                  labelStyle: const TextStyle(color: Colors.blue),
+                  labelStyle: const TextStyle(color: MainTheme.thirdColor),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(13),
                   ),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: MainTheme.secondaryColor,
                   suffixIcon:
                       _buildClearIconButton(_cityController, _cityFocusNode),
                 ),
@@ -254,15 +259,15 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
               TextFormField(
                 controller: _addressController,
                 focusNode: _addressFocusNode,
-                style: const TextStyle(color: Colors.blue),
+                style: const TextStyle(color: MainTheme.thirdColor),
                 decoration: InputDecoration(
                   labelText: 'Address',
-                  labelStyle: const TextStyle(color: Colors.blue),
+                  labelStyle: const TextStyle(color: MainTheme.thirdColor),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(13),
                   ),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: MainTheme.secondaryColor,
                   suffixIcon: _buildClearIconButton(
                       _addressController, _addressFocusNode),
                 ),
@@ -359,7 +364,7 @@ class _InfoFirstScreenState extends State<InfoFirstScreen> {
                 }
               : null,
           icon: hasText
-              ? const Icon(Icons.clear, color: Colors.blue)
+              ? const Icon(Icons.clear, color: MainTheme.thirdColor)
               : const SizedBox(),
         );
       },

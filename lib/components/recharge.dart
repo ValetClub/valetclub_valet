@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class RechargeScreen extends StatelessWidget {
   const RechargeScreen({super.key});
@@ -12,11 +13,11 @@ class RechargeScreen extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: MainTheme.secondaryColor,
+        foregroundColor: MainTheme.darkColor,
       ),
       body: Container(
-        color: Colors.white,
+        color: MainTheme.secondaryColor,
         child: const Center(
           child: Text('Recharge  Screen'),
         ),

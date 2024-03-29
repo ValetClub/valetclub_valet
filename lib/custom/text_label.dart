@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class CustomTextLabel extends StatelessWidget {
   final String text;
@@ -25,7 +26,7 @@ class CustomTextLabel extends StatelessWidget {
               text,
               style: TextStyle(
                 fontSize: fontSize,
-                color: Colors.white,
+                color: MainTheme.secondaryColor,
                 fontWeight: fontWeight,
               ),
               textAlign: textAlign,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -37,13 +38,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
       focusNode: widget.focusNode,
       obscureText: widget.isPassword ? _isObscure : false,
       keyboardType: widget.keyboardType,
-      style: const TextStyle(color: Colors.blue),
+      style: const TextStyle(color: MainTheme.thirdColor),
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         prefixText: widget.prefixText,
-        prefixStyle: const TextStyle(color: Colors.blue),
+        prefixStyle: const TextStyle(color: MainTheme.thirdColor),
         labelText: widget.labelText,
-        labelStyle: const TextStyle(color: Colors.blue),
+        labelStyle: const TextStyle(color: MainTheme.thirdColor),
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
@@ -53,7 +54,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 },
                 icon: Icon(
                   _isObscure ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.blue,
+                  color: MainTheme.thirdColor,
                 ),
               )
             : _buildClearIconButton(widget.controller),
@@ -61,7 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           borderRadius: BorderRadius.circular(13),
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: MainTheme.secondaryColor,
       ),
       validator: widget.validator,
     );
@@ -81,7 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 }
               : null,
           icon: hasText
-              ? const Icon(Icons.clear, color: Colors.blue)
+              ? const Icon(Icons.clear, color: MainTheme.thirdColor)
               : const SizedBox(),
         );
       },

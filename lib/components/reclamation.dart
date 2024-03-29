@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class ReclamationScreen extends StatelessWidget {
   const ReclamationScreen({super.key});
@@ -12,8 +13,8 @@ class ReclamationScreen extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: MainTheme.secondaryColor,
+        foregroundColor: MainTheme.darkColor,
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -22,7 +23,7 @@ class ReclamationScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        color: Colors.white,
+        color: MainTheme.secondaryColor,
         child: const Center(
           child: Text('Reclamation  Screen'),
         ),

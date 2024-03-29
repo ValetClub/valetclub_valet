@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class SuivantButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -17,13 +18,13 @@ class SuivantButton extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10),
         child: MaterialButton(
           onPressed: onPressed,
-          color: Colors.white,
+          color: MainTheme.secondaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
             buttonText,
-            style: const TextStyle(color: Colors.blue),
+            style: const TextStyle(color: MainTheme.thirdColor),
           ),
         ),
       ),

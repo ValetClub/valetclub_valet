@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
@@ -14,8 +15,8 @@ class SettingsScreen extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: MainTheme.secondaryColor,
+        foregroundColor: MainTheme.darkColor,
       ),
       body: Stack(
         children: [
@@ -25,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(height: 10),
                 Container(
-                  color: Colors.white,
+                  color: MainTheme.secondaryColor,
                   child: const ListTile(
                     title: Row(
                       children: [
@@ -38,7 +39,7 @@ class SettingsScreen extends StatelessWidget {
                         Text(
                           'Profil',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: MainTheme.darkColor,
                           ),
                         ),
                       ],
@@ -50,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
                 Column(
                   children: [
                     Container(
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                       child: const ListTile(
                         leading: Icon(Icons.stars_outlined),
                         trailing: Icon(Icons.arrow_right),
@@ -60,7 +61,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                       child: const ListTile(
                         leading: Icon(Icons.notifications),
                         trailing: Icon(Icons.arrow_right),
@@ -74,7 +75,7 @@ class SettingsScreen extends StatelessWidget {
                 Column(
                   children: [
                     Container(
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                       child: const ListTile(
                         leading: Icon(Icons.contact_mail),
                         trailing: Icon(Icons.arrow_right),
@@ -84,7 +85,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                       child: const ListTile(
                         leading: Icon(Icons.looks),
                         trailing: Icon(Icons.arrow_right),
@@ -94,7 +95,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      color: Colors.white,
+                      color: MainTheme.secondaryColor,
                       child: const ListTile(
                         leading: Icon(Icons.lock),
                         trailing: Icon(Icons.arrow_right),

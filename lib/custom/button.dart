@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class CustomButton extends StatelessWidget {
   final String buttonText;
@@ -11,7 +12,7 @@ class CustomButton extends StatelessWidget {
     required this.buttonText,
     required this.onPressed,
     this.isLoading = false,
-    this.buttonColor = const Color(0xFFE23777),
+    this.buttonColor = MainTheme.mainColor,
   });
 
   @override
@@ -20,19 +21,19 @@ class CustomButton extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(top: 10),
         child: isLoading
-            ? const CircularProgressIndicator(color: Colors.white)
+            ? const CircularProgressIndicator(color: MainTheme.secondaryColor)
             : MaterialButton(
                 onPressed: onPressed,
                 color: buttonColor,
                 shape: RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.white),
+                  side: const BorderSide(color: MainTheme.secondaryColor),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
                 child: Text(
                   buttonText,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: MainTheme.secondaryColor),
                 ),
               ),
       ),

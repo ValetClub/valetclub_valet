@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/components/settings.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -22,8 +23,8 @@ class ProfileScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               centerTitle: true,
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
+              backgroundColor: MainTheme.secondaryColor,
+              foregroundColor: MainTheme.darkColor,
             ),
       body: Column(
         children: [
@@ -61,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
           'assets/images/settings.png',
           width: 30,
           height: 30,
-          color: Colors.white,
+          color: MainTheme.secondaryColor,
         ),
       ),
     );
@@ -86,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.blue,
+                      color: MainTheme.thirdColor,
                       width: 2,
                     ),
                   ),
@@ -99,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                 const Text(
                   "Oussama Rochdi",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: MainTheme.secondaryColor,
                     fontSize: 16,
                   ),
                 ),
@@ -126,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
           Text(
             text.split('\n')[0],
             style: const TextStyle(
-              color: Colors.white,
+              color: MainTheme.secondaryColor,
               fontSize: 12,
             ),
           ),
@@ -134,7 +135,7 @@ class ProfileScreen extends StatelessWidget {
           Text(
             text.split('\n')[1],
             style: const TextStyle(
-              color: Colors.white,
+              color: MainTheme.secondaryColor,
               fontSize: 12,
             ),
           ),
@@ -147,11 +148,11 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.yellow,
+        color: MainTheme.warningColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5),
+            color: MainTheme.darkColor.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 1,
             offset: const Offset(0, 2),
@@ -161,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
       child: const Text(
         'En mission',
         style: TextStyle(
-          color: Colors.white,
+          color: MainTheme.secondaryColor,
           fontSize: 12,
         ),
       ),
@@ -172,7 +173,7 @@ class ProfileScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: MainTheme.secondaryColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
@@ -217,7 +218,7 @@ class ProfileScreen extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.grey[400],
+          color: MainTheme.greyColor.withOpacity(0.4),
           fontSize: 16,
         ),
       ),
@@ -230,7 +231,7 @@ class ProfileScreen extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          color: Colors.blue,
+          color: MainTheme.thirdColor,
           fontSize: 16,
         ),
       ),
@@ -240,7 +241,7 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildCustomCard(String title, String content) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: MainTheme.greyColor.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

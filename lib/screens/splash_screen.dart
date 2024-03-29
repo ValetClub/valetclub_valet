@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/pages/home_screen.dart';
 import 'package:valetclub_valet/screens/landing_screen.dart';
 import 'package:valetclub_valet/services/otp.dart';
@@ -46,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'Valet Club',
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.white,
+                    color: MainTheme.secondaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -55,13 +56,14 @@ class _SplashScreenState extends State<SplashScreen>
                   'For Drivers',
                   style: TextStyle(
                     fontSize: 10,
-                    color: Colors.white,
+                    color: MainTheme.secondaryColor,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
                 const SizedBox(height: 50),
                 const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(MainTheme.secondaryColor),
                 ),
               ],
             ),

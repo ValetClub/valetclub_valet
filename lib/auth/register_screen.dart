@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:valetclub_valet/auth/login_phone.dart';
 import 'package:valetclub_valet/auth/password_screen.dart';
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/suivant_button.dart';
 import 'package:valetclub_valet/custom/text_field.dart';
 
@@ -71,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Colors.white,
+                                  color: MainTheme.secondaryColor,
                                   width: 1.0,
                                 ),
                               ),
@@ -83,7 +84,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 children: [
                                   Text(
                                     "Registration",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: MainTheme.secondaryColor),
                                   ),
                                 ],
                               ),
@@ -188,17 +190,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
             controller: _phoneNumberController,
             keyboardType: TextInputType.phone,
             readOnly: true,
-            style: const TextStyle(color: Colors.blue),
+            style: const TextStyle(color: MainTheme.thirdColor),
             decoration: InputDecoration(
               prefixText: "+212 \t",
               labelText: "Entrez votre phone number",
-              prefixStyle: const TextStyle(color: Colors.blue),
-              labelStyle: const TextStyle(color: Colors.blue),
+              prefixStyle: const TextStyle(color: MainTheme.thirdColor),
+              labelStyle: const TextStyle(color: MainTheme.thirdColor),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(13),
               ),
               filled: true,
-              fillColor: Colors.white,
+              fillColor: MainTheme.secondaryColor,
             ),
           ),
         ],
@@ -214,7 +216,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           const Text(
             'Already have an account?',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: MainTheme.secondaryColor),
           ),
           GestureDetector(
             onTap: () {
@@ -238,7 +240,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                   },
               ),
-              style: const TextStyle(color: Colors.blue),
+              style: const TextStyle(color: MainTheme.thirdColor),
             ),
           ),
         ],

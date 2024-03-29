@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -15,7 +16,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFE23777),
+        color: MainTheme.mainColor,
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(8),
           topLeft: Radius.circular(8),
@@ -31,12 +32,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           child: GNav(
-            rippleColor: Colors.grey[300]!,
-            hoverColor: Colors.grey[100]!,
+            rippleColor: MainTheme.greyColor.withOpacity(0.5),
+            hoverColor: MainTheme.greyColor.withOpacity(0.2),
             gap: 5,
-            activeColor: const Color(0xFFE23777),
+            activeColor: MainTheme.mainColor,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            tabBackgroundColor: Colors.grey[200]!,
+            tabBackgroundColor: MainTheme.secondaryColor.withOpacity(0.9),
             tabs: [
               GButton(
                 icon: Icons.home,
@@ -46,8 +47,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/home.png',
                     color: selectedIndex == 0
-                        ? const Color(0xFFE23777)
-                        : Colors.white,
+                        ? MainTheme.mainColor
+                        : MainTheme.secondaryColor,
                   ),
                 ),
                 text: "Home",
@@ -60,8 +61,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/activity.png',
                     color: selectedIndex == 1
-                        ? const Color(0xFFE23777)
-                        : Colors.white,
+                        ? MainTheme.mainColor
+                        : MainTheme.secondaryColor,
                   ),
                 ),
                 text: "Activity",
@@ -74,8 +75,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/scan.png',
                     color: selectedIndex == 2
-                        ? const Color(0xFFE23777)
-                        : Colors.white,
+                        ? MainTheme.mainColor
+                        : MainTheme.secondaryColor,
                   ),
                 ),
                 text: "Scan",
@@ -88,8 +89,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/notification.png',
                     color: selectedIndex == 3
-                        ? const Color(0xFFE23777)
-                        : Colors.white,
+                        ? MainTheme.mainColor
+                        : MainTheme.secondaryColor,
                   ),
                 ),
                 text: "Notification",
@@ -102,8 +103,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   child: Image.asset(
                     'assets/images/profile.png',
                     color: selectedIndex == 4
-                        ? const Color(0xFFE23777)
-                        : Colors.white,
+                        ? MainTheme.mainColor
+                        : MainTheme.secondaryColor,
                   ),
                 ),
                 text: "Profile",

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:valetclub_valet/auth/register_screen.dart';
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/text_label.dart';
 import 'package:valetclub_valet/pages/home_screen.dart';
 import 'package:valetclub_valet/services/otp.dart';
@@ -101,7 +102,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Invalid OTP. Please try again.'),
-            backgroundColor: Colors.red,
+            backgroundColor: MainTheme.errorColor,
           ),
         );
       }
@@ -115,7 +116,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Error sending OTP'),
-            backgroundColor: Colors.red,
+            backgroundColor: MainTheme.errorColor,
           ),
         );
       },
@@ -132,7 +133,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error sending OTP: $error'),
-            backgroundColor: Colors.red,
+            backgroundColor: MainTheme.errorColor,
           ),
         );
       },
@@ -150,7 +151,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
+        foregroundColor: MainTheme.secondaryColor,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -170,7 +171,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Colors.white,
+                                  color: MainTheme.secondaryColor,
                                   width: 1.0,
                                 ),
                               ),
@@ -184,7 +185,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 children: [
                                   Text(
                                     "Se connecter",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: MainTheme.secondaryColor),
                                   ),
                                 ],
                               ),
@@ -210,19 +212,21 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         child: TextFormField(
                           controller: _otpController,
                           keyboardType: TextInputType.number,
-                          style: const TextStyle(color: Colors.blue),
+                          style: const TextStyle(color: MainTheme.thirdColor),
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(6),
                           ],
                           decoration: InputDecoration(
                             labelText: "Enter le code",
-                            labelStyle: const TextStyle(color: Colors.blue),
+                            labelStyle:
+                                const TextStyle(color: MainTheme.thirdColor),
                             border: const OutlineInputBorder(),
                             suffixText: '00:$_start ',
-                            suffixStyle: const TextStyle(color: Colors.blue),
+                            suffixStyle:
+                                const TextStyle(color: MainTheme.thirdColor),
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: MainTheme.secondaryColor,
                           ),
                           validator: (val) {
                             if (val!.isEmpty) {
@@ -255,11 +259,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
       text: TextSpan(
         text:
             'Vous allez recevoir un SMS avec un code de verification \n sur +212${widget.phoneNumber}',
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: MainTheme.secondaryColor),
         children: const [
           TextSpan(
             text: '\tModifiez votre numéro',
-            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: MainTheme.thirdColor, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -283,7 +288,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             Container(
               height: 1,
               width: 50,
-              color: Colors.white,
+              color: MainTheme.secondaryColor,
             ),
           ],
         ),

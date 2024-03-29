@@ -3,6 +3,7 @@ import 'package:valetclub_valet/auth/login_email.dart';
 import 'package:valetclub_valet/auth/login_phone.dart';
 import 'package:valetclub_valet/auth/register_screen.dart';
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/text_label.dart';
 import 'package:valetclub_valet/pages/home_screen.dart';
 
@@ -51,16 +52,16 @@ class LandingScreen extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13),
-          border: Border.all(color: Colors.white),
-          color: Colors.white,
+          border: Border.all(color: MainTheme.secondaryColor),
+          color: MainTheme.secondaryColor,
         ),
         child: TextFormField(
           enabled: false,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: MainTheme.secondaryColor),
           decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.phone, color: Colors.pink),
+            prefixIcon: Icon(Icons.phone, color: MainTheme.mainColor),
             labelText: "Continuez avec votre numéro de téléphone",
-            labelStyle: TextStyle(color: Colors.blue),
+            labelStyle: TextStyle(color: MainTheme.thirdColor),
             border: InputBorder.none,
           ),
         ),
@@ -76,7 +77,7 @@ class LandingScreen extends StatelessWidget {
           const Text(
             'Already have an account?',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: MainTheme.secondaryColor),
           ),
           GestureDetector(
             onTap: () {
@@ -90,7 +91,7 @@ class LandingScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: MainTheme.thirdColor),
             ),
           ),
         ],
@@ -105,15 +106,15 @@ class LandingScreen extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HomeScreen()));
         },
-        color: const Color(0xFFE23777),
+        color: MainTheme.mainColor,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.white),
+          side: const BorderSide(color: MainTheme.secondaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
         child: const Text(
           "Home screen",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: MainTheme.secondaryColor),
         ),
       ),
     );
@@ -130,15 +131,15 @@ class LandingScreen extends StatelessWidget {
                         phoneNumber: '',
                       )));
         },
-        color: const Color(0xFFE23777),
+        color: MainTheme.mainColor,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.white),
+          side: const BorderSide(color: MainTheme.secondaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
         child: const Text(
           "Register",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: MainTheme.secondaryColor),
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:valetclub_valet/common/common_widgets.dart';
 import 'package:valetclub_valet/custom/button.dart';
 import 'package:valetclub_valet/custom/text_field.dart';
 import 'package:valetclub_valet/custom/text_label.dart';
+import 'package:valetclub_valet/common/theme.dart';
 
 import 'package:valetclub_valet/screens/termes_conditions.dart';
 import 'package:valetclub_valet/services/otp.dart';
@@ -54,7 +55,7 @@ class _LoginPhoneState extends State<LoginPhone> {
                             decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Colors.white,
+                                  color: MainTheme.secondaryColor,
                                   width: 1.0,
                                 ),
                               ),
@@ -68,7 +69,8 @@ class _LoginPhoneState extends State<LoginPhone> {
                                 children: [
                                   Text(
                                     "Se connecter",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: MainTheme.secondaryColor),
                                   ),
                                 ],
                               ),
@@ -157,11 +159,12 @@ class _LoginPhoneState extends State<LoginPhone> {
       child: RichText(
         text: const TextSpan(
           text: 'En créant un compte, vous acceptez nos\n',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: MainTheme.secondaryColor),
           children: [
             TextSpan(
               text: 'Termes et conditions',
-              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: MainTheme.thirdColor, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -189,7 +192,7 @@ class _LoginPhoneState extends State<LoginPhone> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Failed to send OTP'),
-            backgroundColor: Colors.red,
+            backgroundColor: MainTheme.errorColor,
           ),
         );
       },

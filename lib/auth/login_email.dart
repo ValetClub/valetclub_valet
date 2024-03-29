@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:valetclub_valet/common/common_widgets.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/custom/button.dart';
 
 import 'package:valetclub_valet/custom/text_field.dart';
@@ -52,7 +53,7 @@ class _LoginEmailState extends State<LoginEmail> {
                             decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Colors.white,
+                                  color: MainTheme.secondaryColor,
                                   width: 1.0,
                                 ),
                               ),
@@ -64,7 +65,8 @@ class _LoginEmailState extends State<LoginEmail> {
                                 children: [
                                   Text(
                                     "Se connecter",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: MainTheme.secondaryColor),
                                   ),
                                 ],
                               ),
@@ -121,14 +123,14 @@ class _LoginEmailState extends State<LoginEmail> {
                   const SizedBox(height: 10),
                   const Center(
                       child: Text("Ou connectez-vous avec",
-                          style: TextStyle(color: Colors.white))),
+                          style: TextStyle(color: MainTheme.secondaryColor))),
                   _buildNumberConnexionButton(),
                   if (_error.isNotEmpty) ...[
                     const SizedBox(height: 10),
                     Center(
                       child: Text(
                         _error,
-                        style: const TextStyle(color: Colors.yellow),
+                        style: const TextStyle(color: MainTheme.warningColor),
                       ),
                     ),
                   ],
@@ -200,7 +202,7 @@ class _LoginEmailState extends State<LoginEmail> {
               ),
             );
           },
-          color: Colors.white,
+          color: MainTheme.secondaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -209,11 +211,11 @@ class _LoginEmailState extends State<LoginEmail> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.phone, color: Colors.pink),
+                Icon(Icons.phone, color: MainTheme.mainColor),
                 SizedBox(width: 5),
                 Text(
                   "Login with Phone Number",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: MainTheme.darkColor),
                 ),
               ],
             ),

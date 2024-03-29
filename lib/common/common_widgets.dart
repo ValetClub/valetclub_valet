@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/pages/home_screen.dart';
 
 // main app logo
@@ -36,7 +37,7 @@ Widget PlusTardButton(BuildContext context) {
         ),
         child: const Text(
           "Plus Tard",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: MainTheme.secondaryColor),
         ),
       ),
     ),
