@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/components/settings.dart';
@@ -12,6 +14,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final User? user = _auth.currentUser;
+    final String userId = user?.uid ?? '';
     return Scaffold(
       // Condition Of showing AppBar or Not based on
       // whether the screen is opened from BottomNavigationBar or not
@@ -26,21 +31,43 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: MainTheme.secondaryColor,
               foregroundColor: MainTheme.darkColor,
             ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                const SizedBox(height: 16),
-                _buildSettingsIcon(context),
-                const SizedBox(height: 16),
-                _buildProfileInfo(),
-                const SizedBox(height: 16),
-                _buildStatistics(),
-              ],
-            ),
-          ),
-        ],
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .snapshots(),
+        builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+
+          if (!snapshot.hasData || snapshot.data!.data() == null) {
+            return const Text('User not found');
+          }
+
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+
+          return Column(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    _buildSettingsIcon(context),
+                    const SizedBox(height: 16),
+                    _buildProfileInfo(userData),
+                    const SizedBox(height: 16),
+                    _buildStatistics(),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -68,7 +95,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileInfo() {
+  Widget _buildProfileInfo(Map<String, dynamic> userData) {
+    final String nom = userData['nom'] as String;
+    final String prenom = userData['prenom'] as String;
+    final String fullname = '$nom $prenom';
     return Column(
       children: [
         Row(
@@ -97,9 +127,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                const Text(
-                  "Oussama Rochdi",
-                  style: TextStyle(
+                Text(
+                  fullname,
+                  style: const TextStyle(
                     color: MainTheme.secondaryColor,
                     fontSize: 16,
                   ),

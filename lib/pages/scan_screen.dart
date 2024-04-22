@@ -6,7 +6,7 @@ class ScanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       color: MainTheme.secondaryColor,
       child: const Center(
         child: Text('Scan Screen'),

@@ -117,7 +117,7 @@ class tracking extends State<HomeScreen> {
     _widgetOptions = [
       _content(),
       ActivityScreen(isFromBottomNavBar: isFromBottomNavBar),
-      ScanScreen(),
+      const ScanScreen(),
       const NotificationScreen(),
       ProfileScreen(isFromBottomNavBar: isFromBottomNavBar),
     ];

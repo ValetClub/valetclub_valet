@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/components/cars_parking.dart';
@@ -21,8 +23,11 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final User? user = _auth.currentUser;
+    final String userId = user?.uid ?? '';
     return Container(
-      width: 300,
+      width: MediaQuery.of(context).size.width - 50,
       height: double.infinity,
       color: MainTheme.secondaryColor,
       child: SingleChildScrollView(
@@ -57,20 +62,59 @@ class Sidebar extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'test valet',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: MainTheme.secondaryColor,
-                    ),
+                  StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(userId)
+                        .snapshots(),
+                    builder:
+                        (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Something went wrong');
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+
+                      if (!snapshot.hasData || snapshot.data!.data() == null) {
+                        return const Text('User not found');
+                      }
+
+                      final userData =
+                          snapshot.data!.data() as Map<String, dynamic>;
+                      final nom = userData['nom'] as String;
+                      final prenom = userData['prenom'] as String;
+                      final fullname = '$nom $prenom';
+                      return Text(
+                        fullname,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: MainTheme.secondaryColor,
+                        ),
+                      );
+                    },
                   ),
-                  const Text(
-                    'ID: 12345',
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: MainTheme.secondaryColor,
-                    ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Id :',
+                        style: TextStyle(
+                          fontSize: 8,
+                          color: MainTheme.secondaryColor,
+                        ),
+                      ),
+                      Text(
+                        userId,
+                        style: const TextStyle(
+                          fontSize: 8,
+                          color: MainTheme.secondaryColor,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

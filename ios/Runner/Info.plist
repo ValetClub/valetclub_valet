@@ -28,6 +28,10 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<!-- Permission camera -->
+	<key>NSCameraUsageDescription</key>
+	<string>Need Camera Permission for Scanning QR</string>
+	<!-- end of permission camera -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
