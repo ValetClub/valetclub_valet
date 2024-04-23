@@ -1,9 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Otp {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static String verifyId = "";
+
+  static Future<bool> checkPhoneNumberExists(String phoneNumber) async {
+    try {
+      // Query Firestore to check if the phone number exists
+      var querySnapshot = await _firestore
+          .collection('users')
+          .where('phoneNumber', isEqualTo: phoneNumber)
+          .get();
+
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print('Error checking phone number: $e');
+      return false;
+    }
+  }
 
   // to send an OTP to the user
   static Future<void> sentOtp({

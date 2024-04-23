@@ -69,24 +69,24 @@ class _VerificationScreenState extends State<VerificationScreen> {
     Otp.loginWithOtp(otp: enteredOTP).then((result) {
       if (result == "Success") {
         // OTP verification successful
-        Otp.isLoggedIn().then((isLoggedIn) {
-          if (isLoggedIn) {
-            if (widget.phoneNumber.isNotEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RegisterScreen(
-                    phoneNumber: widget.phoneNumber,
-                  ),
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
-            }
+        // Check if the phone number exists in both Firestore and Firebase Auth
+        String phoneNumberCheck = "+212${widget.phoneNumber}";
+
+        Future.wait([
+          Otp.checkPhoneNumberExists(phoneNumberCheck),
+          Otp.isLoggedIn(),
+        ]).then((results) {
+          bool existsInFirestore = results[0];
+          bool isLoggedIn = results[1];
+
+          if (existsInFirestore && isLoggedIn) {
+            // Phone number exists in both Firestore and Firebase Auth, navigate to HomeScreen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
           } else {
+            // Phone number doesn't exist in both Firestore and Firebase Auth, navigate to RegisterScreen
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -98,7 +98,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
           }
         });
       } else {
-        // Invalid OTP, show error message
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Invalid OTP. Please try again.'),
