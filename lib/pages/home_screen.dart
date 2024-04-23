@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:valetclub_valet/common/map_key.dart';
 import 'package:valetclub_valet/common/theme.dart';
 import 'package:valetclub_valet/components/reclamation.dart';
 
@@ -29,9 +30,9 @@ class tracking extends State<HomeScreen> {
 
   final Completer<GoogleMapController> _mapController =
       Completer<GoogleMapController>();
-  static const LatLng _sourceLocation = LatLng(33.610442, -7.653565);
+  // static const LatLng _sourceLocation = LatLng(33.610442, -7.653565);
 
-  static const LatLng _destinationLocation = LatLng(33.592076, -7.625269);
+  static const LatLng _destinationLocation = LatLng(33.592076, -7.625999);
   LatLng? _currentPosition;
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
@@ -40,28 +41,29 @@ class tracking extends State<HomeScreen> {
   String? clientAddress;
   bool _destinationMarkerVisibility = true;
 
-  // List<LatLng> polylineCoordinates = [];
+  List<LatLng> polylineCoordinates = [];
+  late Polyline _keyPolyLine;
 
-  // void getPolylinePoints() async {
-  //   PolylinePoints polylinePoints = PolylinePoints();
-  //   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-  //     mapKey,
-  //     PointLatLng(_sourceLocation.latitude, _sourceLocation.longitude),
-  //     PointLatLng(
-  //         _destinationLocation.latitude, _destinationLocation.longitude),
-  //     travelMode: TravelMode.driving,
-  //   );
-  //   if (result.points.isNotEmpty) {
-  //     result.points.forEach(
-  //       (PointLatLng point) => polylineCoordinates.add(
-  //         LatLng(point.latitude, point.longitude),
-  //       ),
-  //     );
-  //     setState(() {});
-  //   } else {
-  //     print(result.errorMessage);
-  //   }
-  // }
+  void getPolylinePoints() async {
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      mapKey,
+      PointLatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+      PointLatLng(
+          _destinationLocation.latitude, _destinationLocation.longitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach(
+        (PointLatLng point) => polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        ),
+      );
+      setState(() {});
+    } else {
+      print(result.errorMessage);
+    }
+  }
 
   void setCustomMarkerIcon() {
     // BitmapDescriptor.fromAssetImage(
@@ -96,17 +98,6 @@ class tracking extends State<HomeScreen> {
 
   // Drawing a line between the source and the destination
 
-  // final Polyline _keyPolyLine = const Polyline(
-  //   polylineId: PolylineId("route"),
-  //   points: [
-  //     _sourceLocation,
-  //     _destinationLocation,
-  //   ],
-  //   color: Colors.blue,
-  //   width: 6,
-  //   visible: true,
-  // );
-
   int _selectedTabIndex = 0;
   // Navigation Condition
   bool isFromBottomNavBar = true;
@@ -129,7 +120,9 @@ class tracking extends State<HomeScreen> {
 
     getLocationUpdates();
     setCustomMarkerIcon();
-    // getPolylinePoints();
+    if (_currentPosition != null) {
+      getPolylinePoints();
+    }
     widgetOptions();
   }
 
@@ -141,6 +134,18 @@ class tracking extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Update _keyPolyLine with current position
+    _keyPolyLine = Polyline(
+      polylineId: const PolylineId("route"),
+      points: [
+        if (_currentPosition != null) _currentPosition!,
+        _destinationLocation,
+      ],
+      color: Colors.blue,
+      width: 3,
+      visible: true,
+    );
+
     Widget content = _selectedTabIndex == 0
         ? _content()
         : (_widgetOptions[_selectedTabIndex]);
@@ -220,14 +225,14 @@ class tracking extends State<HomeScreen> {
             : GoogleMap(
                 onMapCreated: (GoogleMapController controller) =>
                     _mapController.complete(controller),
-                initialCameraPosition: const CameraPosition(
-                  target: _sourceLocation,
+                initialCameraPosition: CameraPosition(
+                  target: _currentPosition!,
                   zoom: 13,
                 ),
                 mapType: MapType.normal,
-                // polylines: {
-                //   _keyPolyLine,
-                // },
+                polylines: {
+                  _keyPolyLine,
+                },
                 markers: {
                   Marker(
                     markerId: const MarkerId("_currentLocation"),
@@ -343,6 +348,7 @@ class tracking extends State<HomeScreen> {
               LatLng(currentLocation.latitude!, currentLocation.longitude!);
           _cameraToPosition(_currentPosition!);
         });
+        getPolylinePoints();
       }
     });
   }

@@ -8,5 +8,4 @@ class MainTheme {
   static const Color greyColor = Colors.grey;
   static const Color errorColor = Colors.red;
   static const Color warningColor = Colors.yellow;
-  // Define other theme  here
 }
