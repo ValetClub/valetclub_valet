@@ -41,17 +41,14 @@ class TrackingState extends State<HomeScreen> {
   bool _destinationMarkerVisibility = true;
 
   List<LatLng> polylineCoordinates = [];
+  PolylinePoints polylinePoints = PolylinePoints();
   late Polyline _keyPolyLine;
 
-  void getPolylinePoints() async {
-    PolylinePoints polylinePoints = PolylinePoints();
+  void getPolylinePoints(LatLng start, LatLng destination) async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       mapKey,
-      PointLatLng(_currentPosition!.latitude, _currentPosition!.longitude),
-      PointLatLng(
-        _destinationLocation.latitude,
-        _destinationLocation.longitude,
-      ),
+      PointLatLng(start.latitude, start.longitude),
+      PointLatLng(destination.latitude, destination.longitude),
       travelMode: TravelMode.driving,
     );
     if (result.points.isNotEmpty) {
@@ -61,8 +58,9 @@ class TrackingState extends State<HomeScreen> {
         ),
       );
       setState(() {});
+      print("Polyline points: $polylineCoordinates");
     } else {
-      print(result.errorMessage);
+      print("No polyline points found. Error message: ${result.errorMessage}");
     }
   }
 
@@ -122,7 +120,7 @@ class TrackingState extends State<HomeScreen> {
         if (_currentPosition != null) _currentPosition!,
         _destinationLocation,
       ],
-      color: Colors.blue,
+      color: MainTheme.thirdColor,
       width: 3,
       visible: true,
     );
@@ -198,7 +196,13 @@ class TrackingState extends State<HomeScreen> {
                 ),
                 mapType: MapType.normal,
                 polylines: {
-                  _keyPolyLine,
+                  Polyline(
+                    polylineId: const PolylineId("route"),
+                    points: polylineCoordinates,
+                    color: MainTheme.thirdColor,
+                    width: 3,
+                  ),
+                  // _keyPolyLine,
                 },
                 markers: {
                   Marker(
@@ -624,12 +628,15 @@ class TrackingState extends State<HomeScreen> {
         .listen((LocationData currentLocation) {
       if (currentLocation.latitude != null &&
           currentLocation.longitude != null) {
+        LatLng currentPosition =
+            LatLng(currentLocation.latitude!, currentLocation.longitude!);
+
         setState(() {
-          _currentPosition =
-              LatLng(currentLocation.latitude!, currentLocation.longitude!);
+          _currentPosition = currentPosition;
+          // LatLng(currentLocation.latitude!, currentLocation.longitude!);
           _cameraToPosition(_currentPosition!);
         });
-        getPolylinePoints();
+        getPolylinePoints(currentPosition, _destinationLocation);
       }
     });
   }
