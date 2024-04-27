@@ -16,7 +16,7 @@ import 'package:valetclub_valet/pages/profile_screen.dart';
 import 'package:valetclub_valet/pages/scan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key});
+  const HomeScreen({super.key, });
 
   @override
   State<HomeScreen> createState() => TrackingState();
